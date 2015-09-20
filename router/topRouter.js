@@ -31,7 +31,12 @@ router.param("topId", function (req, res, next, topId) {
 	});
 
 });
+router.route('/test')
+	.get(function (req, res) {
+		res.send('top test Router test OK');
+	});
 
+	
 router.route('/')
 //list all studies
 	.get(function (req, res) {
@@ -41,7 +46,7 @@ router.route('/')
 			}
 		});
 		//res.send('recommendation Router test OK');
-	})
+	});
 //create a new study /update the study for the given studyId
 	// .post(function (req, res) {
 		// var studyId = req.body.studyId || uuid.v4();
