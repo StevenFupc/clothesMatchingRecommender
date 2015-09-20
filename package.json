@@ -1,0 +1,28 @@
+{
+  "name": "clothesMatchingRecommender",
+  "description": "",
+  "version": "0.0.1",
+  "private": true,
+  "repository": {
+  },
+  "dependencies": {
+    "async": "^1.2.1",
+    "body-parser": "^1.13.1",
+    "chai": "^3.0.0",
+    "chai-things": "^0.2.0",
+    "express": "^4.13.3",
+    "generic-pool": "^2.2.0",
+    "mysql2": "0.15.8",
+    "multer": "^0.1.8",
+    "node-uuid": "^1.4.3",
+    "rebuild": "^0.1.2",
+    "supertest": "^1.0.1",
+    "util": "^0.10.3"
+  },
+  "engines": {
+    "node": ">=0.10.x"
+  },
+  "scripts": {
+    "start": "node main.js"
+  }
+}
