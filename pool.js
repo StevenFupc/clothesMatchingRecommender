@@ -25,10 +25,9 @@ var pool = gp.Pool({
 					// port : 3306,
 					// user : 'huang_yi',
 					// password : 'm@keIThappen',
-					
 					host : 'stevenfupcdb.cv1u8ytuieza.us-west-2.rds.amazonaws.com',
 					port : 3306,
-					user : 'stevenfupc',
+					user : 'i309666',
 					password : 'Toor1234',
 					database : 'adidas'
 				});
