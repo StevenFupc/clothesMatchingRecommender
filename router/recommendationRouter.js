@@ -2,6 +2,10 @@
 
 var express = require('express');
 var router = express.Router();
+
+var topData = require('../data/topData');
+var bottomData = require('../data/bottomData');
+var shoeData = require('../data/shoeData');
 var recommendationData = require('../data/recommendationData');
 
 var uuid = require('node-uuid');
@@ -15,21 +19,117 @@ function insp(obj) {
 }
 
 router.param("recommendationId", function (req, res, next, recommendationId) {
-	recommendationData.getRecommendationById({
+	topData.getTopById({
 		cb: function (err, rows) {
 			if (err) {
 				return next(new Error(err));
 			}
-			if (rows.length > 0)
-				req.recommendation = rows[0];
-			else {
-				res.status(404);
-				return next(new Error("recommendation record not found."));
+			if (rows.length > 0){
+				recommendationData.getRecommendationByTopId({
+					cb: function (err, rows) {
+						if (err) {
+							return next(new Error(err));
+						}
+						if (rows.length > 0)
+							req.recommendation = rows;
+						else {
+							res.status(404);
+							return next(new Error("recommendation record not found."));
+						}
+						next();
+					},
+					param: [req.params.recommendationId]
+				});
 			}
-			next();
+			else {
+				//Top record not found.
+				bottomData.getBottomById({
+					cb: function (err, rows) {
+						if (err) {
+							return next(new Error(err));
+						}
+						if (rows.length > 0){
+							//
+							recommendationData.getRecommendationByBottomId({
+								cb: function (err, rows) {
+									if (err) {
+										return next(new Error(err));
+									}
+									if (rows.length > 0)
+										req.recommendation = rows;
+									else {
+										res.status(404);
+										return next(new Error("recommendation record not found."));
+									}
+									next();
+								},
+								param: [req.params.recommendationId]
+							});
+							//
+						}
+						else {
+							//bottom record not found.
+							shoeData.getShoeById({
+								cb: function (err, rows) {
+									if (err) {
+										return next(new Error(err));
+									}
+									if (rows.length > 0){
+										recommendationData.getRecommendationByShoeId({
+											cb: function (err, rows) {
+												if (err) {
+													return next(new Error(err));
+												}
+												if (rows.length > 0)
+													req.recommendation = rows;
+												else {
+													res.status(404);
+													return next(new Error("recommendation record not found."));
+												}
+												next();
+											},
+											param: [req.params.recommendationId]
+										});
+										
+									}
+									else {
+										res.status(404);
+										return next(new Error("the product id is not found."));
+									}
+									//next();
+								},
+								param: [req.params.recommendationId]
+							});
+							
+						}
+						//next();
+					},
+					param: [req.params.recommendationId]
+				});
+			}
+			//next();
 		},
 		param: [req.params.recommendationId]
 	});
+
+	
+	
+	// recommendationData.getRecommendationById({
+		// cb: function (err, rows) {
+			// if (err) {
+				// return next(new Error(err));
+			// }
+			// if (rows.length > 0)
+				// req.recommendation = rows[0];
+			
+			// else {
+				// res.status(404);
+				// return next(new Error("recommendation record not found."));
+			// }
+			// next();
+		// },
+		// param: [req.params.recommendationId]
+	// });
 });
 
 router.param("topId", function (req, res, next, topId) {
