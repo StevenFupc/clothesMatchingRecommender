@@ -4,7 +4,7 @@ var db = require('../db');
 module.exports = {
 	getRecommendationAll: function (data) {
 		return db.execute({
-			sql: 'SELECT id, topId, topURL, bottomId, bottomURL, shoeId, shoeURL, score, color FROM adidas.RecommendationURL order by id',
+			sql: 'SELECT id, topId, topUrl,topCloudUrl, bottomId, bottomUrl, bottomCloudUrl, shoeId, shoeUrl, shoeCloudUrl, score, color FROM adidas.RecommendationURL order by id',
 			//sql : 'SELECT * FROM "SAP_HHP_MEDEX"."sap.hhp.medexplorer.db::SV_ANSWERS_ALL"',
 			cb: data.cb
 		});
@@ -12,7 +12,7 @@ module.exports = {
 	
 	getRecommendationById: function (data) {
 		return db.execute({
-			sql: 'SELECT id, topId, topURL, bottomId, bottomURL, shoeId, shoeURL, score, color FROM adidas.RecommendationURL'
+			sql: 'SELECT id, topId, topUrl,topCloudUrl, bottomId, bottomUrl, bottomCloudUrl, shoeId, shoeUrl, shoeCloudUrl, score, color FROM adidas.RecommendationURL'
 			+ ' WHERE id = ?',
 			cb: data.cb,
 			param: data.param
@@ -23,7 +23,7 @@ module.exports = {
 
 	getRecommendationByTopId: function (data) {
 		return db.execute({
-			sql: 'SELECT id, topId, topURL, bottomId, bottomURL, shoeId, shoeURL, score, color FROM adidas.RecommendationURL'
+			sql: 'SELECT id, topId, topUrl,topCloudUrl, bottomId, bottomUrl, bottomCloudUrl, shoeId, shoeUrl, shoeCloudUrl, score, color FROM adidas.RecommendationURL'
 			+ ' WHERE topId = ? order by score desc',
 			cb: data.cb,
 			param: data.param
@@ -33,7 +33,7 @@ module.exports = {
 	
 	getRecommendationByBottomId: function (data) {
 		return db.execute({
-			sql: 'SELECT id, topId, topURL, bottomId, bottomURL, shoeId, shoeURL, score, color FROM adidas.RecommendationURL'
+			sql: 'SELECT id, topId, topUrl,topCloudUrl, bottomId, bottomUrl, bottomCloudUrl, shoeId, shoeUrl, shoeCloudUrl, score, color FROM adidas.RecommendationURL'
 			+ ' WHERE bottomId = ? order by score desc',
 			cb: data.cb,
 			param: data.param
@@ -43,7 +43,7 @@ module.exports = {
 	
 	getRecommendationByShoeId: function (data) {
 		return db.execute({
-			sql: 'SELECT id, topId, topURL, bottomId, bottomURL, shoeId, shoeURL, score, color FROM adidas.RecommendationURL'
+			sql: 'SELECT id, topId, topUrl,topCloudUrl, bottomId, bottomUrl, bottomCloudUrl, shoeId, shoeUrl, shoeCloudUrl, score, color FROM adidas.RecommendationURL'
 			+ ' WHERE shoeId = ? order by score desc',
 			cb: data.cb,
 			param: data.param
